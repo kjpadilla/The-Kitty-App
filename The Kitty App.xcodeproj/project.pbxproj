@@ -1,0 +1,574 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5C5962771F9DD86D00BA6D6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5962761F9DD86D00BA6D6A /* AppDelegate.swift */; };
+		5C5962791F9DD86D00BA6D6A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5962781F9DD86D00BA6D6A /* ViewController.swift */; };
+		5C59627C1F9DD86D00BA6D6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C59627A1F9DD86D00BA6D6A /* Main.storyboard */; };
+		5C59627F1F9DD86D00BA6D6A /* The_Kitty_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C59627D1F9DD86D00BA6D6A /* The_Kitty_App.xcdatamodeld */; };
+		5C5962811F9DD86D00BA6D6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C5962801F9DD86D00BA6D6A /* Assets.xcassets */; };
+		5C5962841F9DD86D00BA6D6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C5962821F9DD86D00BA6D6A /* LaunchScreen.storyboard */; };
+		5C59628F1F9DD86D00BA6D6A /* The_Kitty_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C59628E1F9DD86D00BA6D6A /* The_Kitty_AppTests.swift */; };
+		5C59629A1F9DD86D00BA6D6A /* The_Kitty_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5962991F9DD86D00BA6D6A /* The_Kitty_AppUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5C59628B1F9DD86D00BA6D6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C59626B1F9DD86D00BA6D6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5C5962721F9DD86D00BA6D6A;
+			remoteInfo = "The Kitty App";
+		};
+		5C5962961F9DD86D00BA6D6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C59626B1F9DD86D00BA6D6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5C5962721F9DD86D00BA6D6A;
+			remoteInfo = "The Kitty App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5C5962731F9DD86D00BA6D6A /* The Kitty App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Kitty App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C5962761F9DD86D00BA6D6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5C5962781F9DD86D00BA6D6A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5C59627B1F9DD86D00BA6D6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5C59627E1F9DD86D00BA6D6A /* The_Kitty_App.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = The_Kitty_App.xcdatamodel; sourceTree = "<group>"; };
+		5C5962801F9DD86D00BA6D6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5C5962831F9DD86D00BA6D6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5C5962851F9DD86D00BA6D6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C59628A1F9DD86D00BA6D6A /* The Kitty AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Kitty AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C59628E1F9DD86D00BA6D6A /* The_Kitty_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = The_Kitty_AppTests.swift; sourceTree = "<group>"; };
+		5C5962901F9DD86D00BA6D6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C5962951F9DD86D00BA6D6A /* The Kitty AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Kitty AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C5962991F9DD86D00BA6D6A /* The_Kitty_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = The_Kitty_AppUITests.swift; sourceTree = "<group>"; };
+		5C59629B1F9DD86D00BA6D6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5C5962701F9DD86D00BA6D6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C5962871F9DD86D00BA6D6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C5962921F9DD86D00BA6D6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5C59626A1F9DD86D00BA6D6A = {
+			isa = PBXGroup;
+			children = (
+				5C5962751F9DD86D00BA6D6A /* The Kitty App */,
+				5C59628D1F9DD86D00BA6D6A /* The Kitty AppTests */,
+				5C5962981F9DD86D00BA6D6A /* The Kitty AppUITests */,
+				5C5962741F9DD86D00BA6D6A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5C5962741F9DD86D00BA6D6A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5C5962731F9DD86D00BA6D6A /* The Kitty App.app */,
+				5C59628A1F9DD86D00BA6D6A /* The Kitty AppTests.xctest */,
+				5C5962951F9DD86D00BA6D6A /* The Kitty AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5C5962751F9DD86D00BA6D6A /* The Kitty App */ = {
+			isa = PBXGroup;
+			children = (
+				5C5962761F9DD86D00BA6D6A /* AppDelegate.swift */,
+				5C5962781F9DD86D00BA6D6A /* ViewController.swift */,
+				5C59627A1F9DD86D00BA6D6A /* Main.storyboard */,
+				5C5962801F9DD86D00BA6D6A /* Assets.xcassets */,
+				5C5962821F9DD86D00BA6D6A /* LaunchScreen.storyboard */,
+				5C5962851F9DD86D00BA6D6A /* Info.plist */,
+				5C59627D1F9DD86D00BA6D6A /* The_Kitty_App.xcdatamodeld */,
+			);
+			path = "The Kitty App";
+			sourceTree = "<group>";
+		};
+		5C59628D1F9DD86D00BA6D6A /* The Kitty AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				5C59628E1F9DD86D00BA6D6A /* The_Kitty_AppTests.swift */,
+				5C5962901F9DD86D00BA6D6A /* Info.plist */,
+			);
+			path = "The Kitty AppTests";
+			sourceTree = "<group>";
+		};
+		5C5962981F9DD86D00BA6D6A /* The Kitty AppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5C5962991F9DD86D00BA6D6A /* The_Kitty_AppUITests.swift */,
+				5C59629B1F9DD86D00BA6D6A /* Info.plist */,
+			);
+			path = "The Kitty AppUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5C5962721F9DD86D00BA6D6A /* The Kitty App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C59629E1F9DD86D00BA6D6A /* Build configuration list for PBXNativeTarget "The Kitty App" */;
+			buildPhases = (
+				5C59626F1F9DD86D00BA6D6A /* Sources */,
+				5C5962701F9DD86D00BA6D6A /* Frameworks */,
+				5C5962711F9DD86D00BA6D6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "The Kitty App";
+			productName = "The Kitty App";
+			productReference = 5C5962731F9DD86D00BA6D6A /* The Kitty App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5C5962891F9DD86D00BA6D6A /* The Kitty AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C5962A11F9DD86D00BA6D6A /* Build configuration list for PBXNativeTarget "The Kitty AppTests" */;
+			buildPhases = (
+				5C5962861F9DD86D00BA6D6A /* Sources */,
+				5C5962871F9DD86D00BA6D6A /* Frameworks */,
+				5C5962881F9DD86D00BA6D6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5C59628C1F9DD86D00BA6D6A /* PBXTargetDependency */,
+			);
+			name = "The Kitty AppTests";
+			productName = "The Kitty AppTests";
+			productReference = 5C59628A1F9DD86D00BA6D6A /* The Kitty AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5C5962941F9DD86D00BA6D6A /* The Kitty AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C5962A41F9DD86D00BA6D6A /* Build configuration list for PBXNativeTarget "The Kitty AppUITests" */;
+			buildPhases = (
+				5C5962911F9DD86D00BA6D6A /* Sources */,
+				5C5962921F9DD86D00BA6D6A /* Frameworks */,
+				5C5962931F9DD86D00BA6D6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5C5962971F9DD86D00BA6D6A /* PBXTargetDependency */,
+			);
+			name = "The Kitty AppUITests";
+			productName = "The Kitty AppUITests";
+			productReference = 5C5962951F9DD86D00BA6D6A /* The Kitty AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5C59626B1F9DD86D00BA6D6A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = "Kristofer Padilla";
+				TargetAttributes = {
+					5C5962721F9DD86D00BA6D6A = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+					};
+					5C5962891F9DD86D00BA6D6A = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 5C5962721F9DD86D00BA6D6A;
+					};
+					5C5962941F9DD86D00BA6D6A = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 5C5962721F9DD86D00BA6D6A;
+					};
+				};
+			};
+			buildConfigurationList = 5C59626E1F9DD86D00BA6D6A /* Build configuration list for PBXProject "The Kitty App" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5C59626A1F9DD86D00BA6D6A;
+			productRefGroup = 5C5962741F9DD86D00BA6D6A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5C5962721F9DD86D00BA6D6A /* The Kitty App */,
+				5C5962891F9DD86D00BA6D6A /* The Kitty AppTests */,
+				5C5962941F9DD86D00BA6D6A /* The Kitty AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5C5962711F9DD86D00BA6D6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C5962841F9DD86D00BA6D6A /* LaunchScreen.storyboard in Resources */,
+				5C5962811F9DD86D00BA6D6A /* Assets.xcassets in Resources */,
+				5C59627C1F9DD86D00BA6D6A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C5962881F9DD86D00BA6D6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C5962931F9DD86D00BA6D6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5C59626F1F9DD86D00BA6D6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C5962791F9DD86D00BA6D6A /* ViewController.swift in Sources */,
+				5C5962771F9DD86D00BA6D6A /* AppDelegate.swift in Sources */,
+				5C59627F1F9DD86D00BA6D6A /* The_Kitty_App.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C5962861F9DD86D00BA6D6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C59628F1F9DD86D00BA6D6A /* The_Kitty_AppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C5962911F9DD86D00BA6D6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C59629A1F9DD86D00BA6D6A /* The_Kitty_AppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5C59628C1F9DD86D00BA6D6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5C5962721F9DD86D00BA6D6A /* The Kitty App */;
+			targetProxy = 5C59628B1F9DD86D00BA6D6A /* PBXContainerItemProxy */;
+		};
+		5C5962971F9DD86D00BA6D6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5C5962721F9DD86D00BA6D6A /* The Kitty App */;
+			targetProxy = 5C5962961F9DD86D00BA6D6A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5C59627A1F9DD86D00BA6D6A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5C59627B1F9DD86D00BA6D6A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5C5962821F9DD86D00BA6D6A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5C5962831F9DD86D00BA6D6A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5C59629C1F9DD86D00BA6D6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5C59629D1F9DD86D00BA6D6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5C59629F1F9DD86D00BA6D6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "The Kitty App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "kjiOS.The-Kitty-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5C5962A01F9DD86D00BA6D6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "The Kitty App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "kjiOS.The-Kitty-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5C5962A21F9DD86D00BA6D6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "The Kitty AppTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "kjiOS.The-Kitty-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The Kitty App.app/The Kitty App";
+			};
+			name = Debug;
+		};
+		5C5962A31F9DD86D00BA6D6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "The Kitty AppTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "kjiOS.The-Kitty-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The Kitty App.app/The Kitty App";
+			};
+			name = Release;
+		};
+		5C5962A51F9DD86D00BA6D6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "The Kitty AppUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "kjiOS.The-Kitty-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "The Kitty App";
+			};
+			name = Debug;
+		};
+		5C5962A61F9DD86D00BA6D6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "The Kitty AppUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "kjiOS.The-Kitty-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "The Kitty App";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5C59626E1F9DD86D00BA6D6A /* Build configuration list for PBXProject "The Kitty App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C59629C1F9DD86D00BA6D6A /* Debug */,
+				5C59629D1F9DD86D00BA6D6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5C59629E1F9DD86D00BA6D6A /* Build configuration list for PBXNativeTarget "The Kitty App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C59629F1F9DD86D00BA6D6A /* Debug */,
+				5C5962A01F9DD86D00BA6D6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5C5962A11F9DD86D00BA6D6A /* Build configuration list for PBXNativeTarget "The Kitty AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C5962A21F9DD86D00BA6D6A /* Debug */,
+				5C5962A31F9DD86D00BA6D6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5C5962A41F9DD86D00BA6D6A /* Build configuration list for PBXNativeTarget "The Kitty AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C5962A51F9DD86D00BA6D6A /* Debug */,
+				5C5962A61F9DD86D00BA6D6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5C59627D1F9DD86D00BA6D6A /* The_Kitty_App.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5C59627E1F9DD86D00BA6D6A /* The_Kitty_App.xcdatamodel */,
+			);
+			currentVersion = 5C59627E1F9DD86D00BA6D6A /* The_Kitty_App.xcdatamodel */;
+			path = The_Kitty_App.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 5C59626B1F9DD86D00BA6D6A /* Project object */;
+}
