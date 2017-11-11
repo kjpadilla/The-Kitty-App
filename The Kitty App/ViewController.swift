@@ -7,6 +7,8 @@
 //
 
 import UIKit
+    
+var RuleButtonCount = 0
 
 class RulesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout	{
 
@@ -27,11 +29,15 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     ]
     
     @objc func completedRuleButtonPressed (_ sender: UIButton!) {
-        print("button pressed")
+        print("button pressed " + String(sender.tag))
         if (sender.backgroundImage(for: .normal) == #imageLiteral(resourceName: "kittyPaw")) {
+            UserDefaults.standard.set(false, forKey: "clickedRuleButton" + String(sender.tag))
+            UserDefaults.standard.synchronize()
             sender.setBackgroundImage(nil, for: .normal)
         }
         else {
+            UserDefaults.standard.set(true, forKey: "clickedRuleButton" + String(sender.tag))
+            UserDefaults.standard.synchronize()
             sender.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
         }
     }
@@ -74,7 +80,7 @@ class CustomCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("cell created")
+        print("cell created ")
         setUpViews()
     }
     
@@ -94,6 +100,11 @@ class CustomCell: UICollectionViewCell {
         let checkButton = UIButton()
         checkButton.backgroundColor = UIColor(red: 252/255, green: 237/255, blue: 244/255, alpha: 1)
         checkButton.translatesAutoresizingMaskIntoConstraints = false
+        RuleButtonCount = RuleButtonCount + 1
+        checkButton.tag = RuleButtonCount
+        if (UserDefaults.standard.bool(forKey: "clickedRuleButton" + String(checkButton.tag))) {
+            checkButton.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
+        }
         return checkButton
     }()
     
