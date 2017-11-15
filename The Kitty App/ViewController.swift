@@ -18,13 +18,13 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     "Review the rules and what you have to do for the day",
     "Drink a glass of water daily",
     "Always wear your collar when you go out (unless you are wearing a neck accessory for the aesthetic)",
-    "Art Monday - Friday for 1 hour",
+    "Art Monday - Friday for 1 hour, (half an hour on workdays longer than 4 hours)",
     "Bedtime is 7 hours before you have to get up",
-    "Try on your retainer once a month and adjust rule from there",
+    "Try on your retainer once a month and adjust rule from there (11/30)",
     "Wash your face every night (night showers count)",
     "Brush your teeth before you go to sleep",
-    "Kneel when either of us come back home from work, or when we have been gone longer than a full day",
-    "Work out every two weeks",
+    "Kneel whenever we either of us are coming to stay in the apartment",
+    "Work out every two weeks (11/22)",
     "Do two courses of Duolingo everyday"
     ]
     
