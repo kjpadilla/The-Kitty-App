@@ -10,7 +10,7 @@ import UIKit
     
 var RuleButtonCount = 0
 
-class RulesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout	{
+class RulesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate	{
 
     let customCellIdentifier = "customCellIdentifier"
     let theRulesArr = [
@@ -28,6 +28,8 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     "Do two courses of Duolingo everyday"
     ]
     
+    var currentTextView: UITextView? = nil
+    
     @objc func completedRuleButtonPressed (_ sender: UIButton!) {
         print("button pressed " + String(sender.tag))
         if (sender.backgroundImage(for: .normal) == #imageLiteral(resourceName: "kittyPaw")) {
@@ -42,6 +44,7 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         }
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,9 +53,23 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         collectionView?.backgroundColor = UIColor(red: 252/255, green: 237/255, blue: 244/255, alpha: 1)
         
         collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
+    @objc func removeKeyboard (sender: UIBarButtonItem) {
+        print("remove the keyboard")
+        navigationItem.rightBarButtonItem = nil
+        currentTextView?.resignFirstResponder()
+        
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(removeKeyboard))
+        currentTextView = textView
+        print("begin edit")
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 12
     }
@@ -63,6 +80,8 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         customCell.layer.cornerRadius = 6
         
         customCell.ruleLabel.text = theRulesArr[indexPath.item]
+        
+        customCell.ruleLabel.delegate = self
         
         customCell.completedRuleButton.addTarget(self, action: #selector(completedRuleButtonPressed), for: .touchUpInside)
         
@@ -84,13 +103,13 @@ class CustomCell: UICollectionViewCell {
         setUpViews()
     }
     
-    let ruleLabel: UILabel = {
-        let label = UILabel()
+    let ruleLabel: UITextView = {
+        let label = UITextView()
         
         label.backgroundColor = UIColor(red: 252/255, green: 237/255, blue: 244/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12)
         label.sizeToFit()
-        label.numberOfLines = 0
+        //label.numberOfLines = 0
         label.text = "Custom Text Custom Text Custom Text Custom Text Custom Text Custom Text Custom Text"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
