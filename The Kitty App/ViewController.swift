@@ -109,6 +109,8 @@ class CustomCell: UICollectionViewCell {
         label.backgroundColor = UIColor(red: 252/255, green: 237/255, blue: 244/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12)
         label.sizeToFit()
+        label.isScrollEnabled = false
+        label.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         //label.numberOfLines = 0
         label.text = "Custom Text Custom Text Custom Text Custom Text Custom Text Custom Text Custom Text"
         label.translatesAutoresizingMaskIntoConstraints = false
