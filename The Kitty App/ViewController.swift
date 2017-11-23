@@ -8,17 +8,14 @@
 
 import UIKit
     
-var RuleButtonCount = 0
-
-class RulesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate	{
-
-    let customCellIdentifier = "customCellIdentifier"
-    let theRulesArr = [
+var RuleCount = 0
+    
+let theRulesArr = [
     "Brush your teeth first thing when you wake up, or eat and then brush",
     "Review the rules and what you have to do for the day",
     "Drink a glass of water daily",
     "Always wear your collar when you go out (unless you are wearing a neck accessory for the aesthetic)",
-    "Art Monday - Friday for 1 hour, (half an hour on workdays longer than 4 hours)",
+    "Art Monday - Friday for 1 hour (half an hour on workdays longer than 4 hours)",
     "Bedtime is 7 hours before you have to get up",
     "Try on your retainer once a month and adjust rule from there (11/30)",
     "Wash your face every night (night showers count)",
@@ -26,7 +23,11 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     "Kneel whenever we either of us are coming to stay in the apartment",
     "Work out every two weeks (11/22)",
     "Do two courses of Duolingo everyday"
-    ]
+]
+
+class RulesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate	{
+
+    let customCellIdentifier = "customCellIdentifier"
     
     var currentTextView: UITextView? = nil
     
@@ -70,6 +71,12 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         print("begin edit")
     }
     
+    func textViewDidEndEditing(_ textView: UITextView) {
+        print("EndEditing")
+        UserDefaults.standard.set(textView.text, forKey: "editedRuleText" + String(textView.tag))
+        UserDefaults.standard.synchronize()
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 12
     }
@@ -79,7 +86,7 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellIdentifier, for: indexPath) as! CustomCell
         customCell.layer.cornerRadius = 6
         
-        customCell.ruleLabel.text = theRulesArr[indexPath.item]
+        //customCell.ruleLabel.text = theRulesArr[indexPath.item]
         
         customCell.ruleLabel.delegate = self
         
@@ -112,7 +119,14 @@ class CustomCell: UICollectionViewCell {
         label.isScrollEnabled = false
         label.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         //label.numberOfLines = 0
-        label.text = "Custom Text Custom Text Custom Text Custom Text Custom Text Custom Text Custom Text"
+        label.tag = RuleCount
+        
+        if (UserDefaults.standard.string(forKey: "editedRuleText" + String(label.tag)) != nil) {
+            label.text = UserDefaults.standard.string(forKey: "editedRuleText" + String(label.tag))
+        } else {
+            label.text = theRulesArr[label.tag]
+        }
+    
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -121,8 +135,7 @@ class CustomCell: UICollectionViewCell {
         let checkButton = UIButton()
         checkButton.backgroundColor = UIColor(red: 252/255, green: 237/255, blue: 244/255, alpha: 1)
         checkButton.translatesAutoresizingMaskIntoConstraints = false
-        RuleButtonCount = RuleButtonCount + 1
-        checkButton.tag = RuleButtonCount
+        checkButton.tag = RuleCount
         if (UserDefaults.standard.bool(forKey: "clickedRuleButton" + String(checkButton.tag))) {
             checkButton.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
         }
@@ -131,6 +144,8 @@ class CustomCell: UICollectionViewCell {
     
     func setUpViews() {
         backgroundColor = UIColor(red: 249/255, green: 199/255, blue: 224/255, alpha: 1)
+        
+        RuleCount = RuleCount + 1
         
         addSubview(ruleLabel)
         addSubview(completedRuleButton)
