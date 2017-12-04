@@ -8,9 +8,10 @@
 
 import UIKit
     
-var RuleCount = 0
+var RuleLoadedCount = 0
+var RuleCountTotal = 0
     
-let theRulesArr = [
+    var theRulesArr = UserDefaults.standard.object(forKey: "theRulesArray") != nil ? UserDefaults.standard.array(forKey: "theRulesArray") as! [String] :  [
     "Brush your teeth first thing when you wake up, or eat and then brush",
     "Review the rules and what you have to do for the day",
     "Drink a glass of water daily",
@@ -46,6 +47,7 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,12 +57,40 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
         collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addRule))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(removeOrEditRule))
+        
+        UserDefaults.standard.set(theRulesArr, forKey: "theRulesArray")
+        UserDefaults.standard.synchronize()
+    
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    @objc func addRule (sender: UIBarButtonItem) {
+        print("add rule")
+        
+        theRulesArr.append("New Rule")
+        
+        UserDefaults.standard.set(theRulesArr, forKey: "theRulesArray")
+        UserDefaults.standard.synchronize()
+        
+        let insertionPathindex = NSIndexPath(item: theRulesArr.count-1, section: 0)
+        collectionView?.insertItems(at: [insertionPathindex as IndexPath])
+        
+        collectionView?.scrollToItem(at: insertionPathindex as IndexPath, at: .bottom, animated: true)
+        
+    }
+    
+    @objc func removeOrEditRule (sender: UIBarButtonItem) {
+        print("Remove or edit")
+    }
+    
+    
     @objc func removeKeyboard (sender: UIBarButtonItem) {
         print("remove the keyboard")
-        navigationItem.rightBarButtonItem = nil
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addRule))
         currentTextView?.resignFirstResponder()
         
     }
@@ -72,13 +102,17 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        print("EndEditing")
-        UserDefaults.standard.set(textView.text, forKey: "editedRuleText" + String(textView.tag))
+        print("EndEditing at tag: " + String(textView.tag))
+        
+        theRulesArr[textView.tag] = textView.text
+        print(textView.text + " for tag " + String(textView.tag))
+        UserDefaults.standard.set(theRulesArr, forKey: "theRulesArray")
         UserDefaults.standard.synchronize()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        
+        return theRulesArr.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -86,7 +120,8 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellIdentifier, for: indexPath) as! CustomCell
         customCell.layer.cornerRadius = 6
         
-        //customCell.ruleLabel.text = theRulesArr[indexPath.item]
+        customCell.ruleLabel.text = theRulesArr[indexPath.item]
+        customCell.ruleLabel.tag = indexPath.item
         
         customCell.ruleLabel.delegate = self
         
@@ -94,6 +129,8 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
         return customCell
     }
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 60)
@@ -119,13 +156,7 @@ class CustomCell: UICollectionViewCell {
         label.isScrollEnabled = false
         label.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         //label.numberOfLines = 0
-        label.tag = RuleCount
         
-        if (UserDefaults.standard.string(forKey: "editedRuleText" + String(label.tag)) != nil) {
-            label.text = UserDefaults.standard.string(forKey: "editedRuleText" + String(label.tag))
-        } else {
-            label.text = theRulesArr[label.tag]
-        }
     
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -135,7 +166,7 @@ class CustomCell: UICollectionViewCell {
         let checkButton = UIButton()
         checkButton.backgroundColor = UIColor(red: 252/255, green: 237/255, blue: 244/255, alpha: 1)
         checkButton.translatesAutoresizingMaskIntoConstraints = false
-        checkButton.tag = RuleCount
+        checkButton.tag = RuleLoadedCount
         if (UserDefaults.standard.bool(forKey: "clickedRuleButton" + String(checkButton.tag))) {
             checkButton.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
         }
@@ -145,7 +176,7 @@ class CustomCell: UICollectionViewCell {
     func setUpViews() {
         backgroundColor = UIColor(red: 249/255, green: 199/255, blue: 224/255, alpha: 1)
         
-        RuleCount = RuleCount + 1
+        RuleLoadedCount = RuleLoadedCount + 1
         
         addSubview(ruleLabel)
         addSubview(completedRuleButton)
