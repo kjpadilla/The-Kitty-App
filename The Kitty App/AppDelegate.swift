@@ -19,14 +19,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let flowLayout = UICollectionViewFlowLayout()
-        let rulesCollectionViewController = RulesCollectionViewController(collectionViewLayout: flowLayout)
-        
-        window?.rootViewController = UINavigationController(rootViewController: rulesCollectionViewController)
-        
+//        let flowLayout = UICollectionViewFlowLayout()
+//        let rulesCollectionViewController = RulesCollectionViewController(collectionViewLayout: flowLayout)
+//
+//        window?.rootViewController = UINavigationController(rootViewController: rulesCollectionViewController)
+//
         UINavigationBar.appearance().barTintColor = UIColor(red: 66/255, green: 0/255, blue: 33/255, alpha: 1)
-        
+
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        
+        window?.rootViewController = customTabBarController()
+        
+        
         
         application.statusBarStyle = .lightContent
         // Override point for customization after application launch.

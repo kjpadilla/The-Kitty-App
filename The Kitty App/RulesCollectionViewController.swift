@@ -192,4 +192,21 @@ class CustomCell: UICollectionViewCell {
     }
     
 }
-
+    
+    class Rule {
+        var text: String
+        var dueMonth: String?
+        var dueDay: String?
+        var repeating: String?
+        var ruleCompleted: Bool
+        
+        init(text: String, dueMonth: String?, dueDay: String?, repeating: String?, ruleCompleted: Bool) {
+            self.text = text
+            self.dueMonth = dueMonth
+            self.dueDay = dueDay
+            self.repeating = repeating
+            self.ruleCompleted = ruleCompleted
+        }
+        
+        
+    }

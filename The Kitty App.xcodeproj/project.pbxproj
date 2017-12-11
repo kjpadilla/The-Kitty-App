@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		5C5962771F9DD86D00BA6D6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5962761F9DD86D00BA6D6A /* AppDelegate.swift */; };
-		5C5962791F9DD86D00BA6D6A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5962781F9DD86D00BA6D6A /* ViewController.swift */; };
+		5C5962791F9DD86D00BA6D6A /* RulesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5962781F9DD86D00BA6D6A /* RulesCollectionViewController.swift */; };
 		5C59627F1F9DD86D00BA6D6A /* The_Kitty_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C59627D1F9DD86D00BA6D6A /* The_Kitty_App.xcdatamodeld */; };
 		5C5962811F9DD86D00BA6D6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C5962801F9DD86D00BA6D6A /* Assets.xcassets */; };
 		5C5962841F9DD86D00BA6D6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C5962821F9DD86D00BA6D6A /* LaunchScreen.storyboard */; };
 		5C59628F1F9DD86D00BA6D6A /* The_Kitty_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C59628E1F9DD86D00BA6D6A /* The_Kitty_AppTests.swift */; };
 		5C59629A1F9DD86D00BA6D6A /* The_Kitty_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5962991F9DD86D00BA6D6A /* The_Kitty_AppUITests.swift */; };
+		5C5F67981FDE1B7500479C4D /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5F67971FDE1B7500479C4D /* CustomTabBarController.swift */; };
+		5C5F679A1FDE21FA00479C4D /* RuleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5F67991FDE21FA00479C4D /* RuleEditViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +38,7 @@
 /* Begin PBXFileReference section */
 		5C5962731F9DD86D00BA6D6A /* The Kitty App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Kitty App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C5962761F9DD86D00BA6D6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5C5962781F9DD86D00BA6D6A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5C5962781F9DD86D00BA6D6A /* RulesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesCollectionViewController.swift; sourceTree = "<group>"; };
 		5C59627E1F9DD86D00BA6D6A /* The_Kitty_App.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = The_Kitty_App.xcdatamodel; sourceTree = "<group>"; };
 		5C5962801F9DD86D00BA6D6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C5962831F9DD86D00BA6D6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +49,8 @@
 		5C5962951F9DD86D00BA6D6A /* The Kitty AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Kitty AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C5962991F9DD86D00BA6D6A /* The_Kitty_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = The_Kitty_AppUITests.swift; sourceTree = "<group>"; };
 		5C59629B1F9DD86D00BA6D6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C5F67971FDE1B7500479C4D /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		5C5F67991FDE21FA00479C4D /* RuleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RuleEditViewController.swift; path = ../RuleEditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +102,9 @@
 			isa = PBXGroup;
 			children = (
 				5C5962761F9DD86D00BA6D6A /* AppDelegate.swift */,
-				5C5962781F9DD86D00BA6D6A /* ViewController.swift */,
+				5C5F67971FDE1B7500479C4D /* CustomTabBarController.swift */,
+				5C5F67991FDE21FA00479C4D /* RuleEditViewController.swift */,
+				5C5962781F9DD86D00BA6D6A /* RulesCollectionViewController.swift */,
 				5C5962801F9DD86D00BA6D6A /* Assets.xcassets */,
 				5C5962821F9DD86D00BA6D6A /* LaunchScreen.storyboard */,
 				5C5962851F9DD86D00BA6D6A /* Info.plist */,
@@ -258,9 +264,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C5962791F9DD86D00BA6D6A /* ViewController.swift in Sources */,
+				5C5962791F9DD86D00BA6D6A /* RulesCollectionViewController.swift in Sources */,
+				5C5F679A1FDE21FA00479C4D /* RuleEditViewController.swift in Sources */,
 				5C5962771F9DD86D00BA6D6A /* AppDelegate.swift in Sources */,
 				5C59627F1F9DD86D00BA6D6A /* The_Kitty_App.xcdatamodeld in Sources */,
+				5C5F67981FDE1B7500479C4D /* CustomTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
