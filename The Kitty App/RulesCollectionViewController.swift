@@ -185,9 +185,9 @@ class CustomCell: UICollectionViewCell {
         addSubview(ruleLabel)
         addSubview(completedRuleButton)
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0]-[v1(48)]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel, "v1": completedRuleButton]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-4-[v0(48)]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-4-[v0(48)]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": completedRuleButton]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[v0]-[v1(48)]-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel, "v1": completedRuleButton]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-4-[v0(48)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-4-[v0(48)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": completedRuleButton]))
         
     }
     

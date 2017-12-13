@@ -8,12 +8,14 @@
 
 import UIKit
 
-var selectedRepeatingOption = "Daily"
-var selectedMonthOption: String?
-var selectedDayOption: String?
-var selectedHourOption: String?
-var selectedMinuteOption: String?
+fileprivate var selectedRepeatingOption = "Daily"
+fileprivate var selectedMonthOption: String?
+fileprivate var selectedDayOption: String?
+fileprivate var selectedHourOption: String?
+fileprivate var selectedMinuteOption: String?
 
+
+//MARK: RuleEditViewController
 class RuleEditViewController: UIViewController {
     
     override func viewDidLoad() {
@@ -22,39 +24,47 @@ class RuleEditViewController: UIViewController {
         view.backgroundColor = UIColor.blue
         
         setUpViews()
-        
-        // Do any additional setup after loading the view.
     }
     
     @objc func dismissKeyboard() {
         repeatingTextView.text = selectedRepeatingOption
-        if (selectedMonthOption != nil) {
-         dueDateTextView.text = selectedMonthOption! + "/" + selectedDayOption!
-        }
-        else
-        {
-         dueDateTextView.text = "None"
-        }
-        if (selectedHourOption != nil) {
-         dueTimeTextView.text = selectedHourOption! + ":" + selectedMinuteOption!
-        }
-        else
-        {
-         dueTimeTextView.text = "None"
-        }
         view.endEditing(true)
     }
     
+    @objc func updateDueDate () {
+        if (selectedMonthOption != nil || selectedMinuteOption != nil) {
+            dueDateTextView.text = (selectedMonthOption ?? "1") + "/" + (selectedDayOption ?? "1")
+        }
+        else
+        {
+            dueDateTextView.text = "1/01"
+        }
+        dismissKeyboard()
+    }
+    
+    
+    
     @objc func cancelSetDueDate() {
-        selectedMonthOption = nil
-        selectedDayOption = nil
+        
         dueDateTextView.text = "None"
         view.endEditing(true)
     }
     
+    @objc func updateDueTime() {
+        
+        if (selectedHourOption != nil || selectedMinuteOption != nil) {
+            dueTimeTextView.text = (selectedHourOption ?? "0") + ":" + (selectedMinuteOption ?? "0")
+        }
+        else
+        {
+            dueTimeTextView.text = "00:00"
+        }
+        
+        dismissKeyboard()
+    }
+    
     @objc func cancelSetDueTime() {
-        selectedHourOption = nil
-        selectedMinuteOption = nil
+        
         dueTimeTextView.text = "None"
         view.endEditing(true)
     }
@@ -121,6 +131,10 @@ class RuleEditViewController: UIViewController {
         
         label.inputAccessoryView = toolbar
         
+        let repeatingPicker = RepeatingPicker()
+        repeatingPicker.delegate = repeatingPicker
+        label.inputView = repeatingPicker
+        
         return label
     }()
     
@@ -142,10 +156,11 @@ class RuleEditViewController: UIViewController {
         //label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
         
+        
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
-        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(RuleEditViewController.dismissKeyboard))
+        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(RuleEditViewController.updateDueDate))
         
         let cancelButton = UIBarButtonItem(title: "Set None", style: .plain, target: self, action: #selector(RuleEditViewController.cancelSetDueDate))
         
@@ -153,6 +168,11 @@ class RuleEditViewController: UIViewController {
         toolbar.isUserInteractionEnabled = true
         
         label.inputAccessoryView = toolbar
+        
+        
+        let dueDatePicker = DueDatePicker()
+        dueDatePicker.delegate = dueDatePicker
+        label.inputView = dueDatePicker
         
         return label
     }()
@@ -172,13 +192,14 @@ class RuleEditViewController: UIViewController {
         label.backgroundColor = UIColor.white
         label.text = "None"
         label.font = UIFont.systemFont(ofSize: 12)
-        //label.sizeToFit()
+        label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
-        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(RuleEditViewController.dismissKeyboard))
+        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(RuleEditViewController.updateDueTime))
         
         let cancelButton = UIBarButtonItem(title: "Set None", style: .plain, target: self, action: #selector(RuleEditViewController.cancelSetDueTime))
         
@@ -187,35 +208,25 @@ class RuleEditViewController: UIViewController {
         
         label.inputAccessoryView = toolbar
         
+        let dueTimePicker = DueTimePicker()
+        dueTimePicker.delegate = dueTimePicker
+        label.inputView = dueTimePicker
+        
         return label
     }()
     
     func setUpViews() {
         view.addSubview(ruleLabel)
         view.addSubview(editRuleView)
+        
         view.addSubview(repeatingLabel)
         view.addSubview(repeatingTextView)
         
-        let repeatingPicker = RepeatingPicker()
-        repeatingPicker.delegate = repeatingPicker
-        repeatingTextView.inputView = repeatingPicker
-//        repeatingTextView.text = "Repeating: Daily"
-        
-        
-        
-        
-        
         view.addSubview(dueDateLabel)
         view.addSubview(dueDateTextView)
-        let dueDatePicker = DueDatePicker()
-        dueDatePicker.delegate = dueDatePicker
-        dueDateTextView.inputView = dueDatePicker
         
         view.addSubview(dueTimeLabel)
         view.addSubview(dueTimeTextView)
-        let dueTimePicker = DueTimePicker()
-        dueTimePicker.delegate = dueTimePicker
-        dueTimeTextView.inputView = dueTimePicker
         
         
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[v0]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel]))
@@ -258,6 +269,7 @@ class DueDatePicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate 
     let monthOptions = Array(1...12)
     let dayOptions = Array(1...31)
     
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
     }
@@ -289,7 +301,7 @@ class DueDatePicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate 
         }
         
         //otherwise compnent 1
-        if component == 1
+        else
         {
             selectedDayOption = String(describing: dayOptions[row])
         }
@@ -332,7 +344,7 @@ class DueTimePicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate 
         }
         
         //otherwise compnent 1
-        if component == 1
+        else
         {
             selectedMinuteOption = String(describing: minuteOptions[row])
         }
