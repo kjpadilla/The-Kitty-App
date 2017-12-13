@@ -14,6 +14,8 @@ class customTabBarController: UITabBarController {
         super.viewDidLoad()
         
         let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.minimumLineSpacing = 0
         let rulesCollectionViewController = RulesCollectionViewController(collectionViewLayout: flowLayout)
         let rulesNavController = UINavigationController(rootViewController: rulesCollectionViewController)
         rulesNavController.tabBarItem.title = "Rules"

@@ -28,6 +28,7 @@ var RuleCountTotal = 0
 
 class RulesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate	{
 
+    
     let customCellIdentifier = "customCellIdentifier"
     
     var currentTextView: UITextView? = nil
@@ -47,13 +48,15 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         navigationItem.title = "The Rules"
         
-        collectionView?.backgroundColor = UIColor(red: 252/255, green: 237/255, blue: 244/255, alpha: 1)
+//        collectionView?.backgroundColor = UIColor(red: 252/255, green: 237/255, blue: 244/255, alpha: 1)
+        
+        collectionView?.backgroundColor = UIColor(red: 249/255, green: 199/255, blue: 224/255, alpha: 1)
         
         collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
         
@@ -67,6 +70,7 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
     
     @objc func addRule (sender: UIBarButtonItem) {
         print("add rule")
@@ -118,7 +122,6 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellIdentifier, for: indexPath) as! CustomCell
-        customCell.layer.cornerRadius = 6
         
         customCell.ruleLabel.text = theRulesArr[indexPath.item]
         customCell.ruleLabel.tag = indexPath.item
@@ -149,7 +152,7 @@ class CustomCell: UICollectionViewCell {
     
     let ruleLabel: UITextView = {
         let label = UITextView()
-        
+        label.layer.cornerRadius = 6
         label.backgroundColor = UIColor(red: 252/255, green: 237/255, blue: 244/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12)
         label.sizeToFit()
@@ -164,6 +167,7 @@ class CustomCell: UICollectionViewCell {
     
     let completedRuleButton: UIButton = {
         let checkButton = UIButton()
+        checkButton.layer.cornerRadius = 6
         checkButton.backgroundColor = UIColor(red: 252/255, green: 237/255, blue: 244/255, alpha: 1)
         checkButton.translatesAutoresizingMaskIntoConstraints = false
         checkButton.tag = RuleLoadedCount
@@ -174,16 +178,16 @@ class CustomCell: UICollectionViewCell {
     }()
     
     func setUpViews() {
-        backgroundColor = UIColor(red: 249/255, green: 199/255, blue: 224/255, alpha: 1)
-        
+        //backgroundColor = UIColor(red: 249/255, green: 199/255, blue: 224/255, alpha: 1)
+        //backgroundColor = UIColor.black
         RuleLoadedCount = RuleLoadedCount + 1
         
         addSubview(ruleLabel)
         addSubview(completedRuleButton)
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[v0]-[v1(44)]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel, "v1": completedRuleButton]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[v0(44)]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[v0(44)]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": completedRuleButton]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0]-[v1(48)]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel, "v1": completedRuleButton]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-4-[v0(48)]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-4-[v0(48)]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": completedRuleButton]))
         
     }
     
