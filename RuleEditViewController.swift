@@ -8,7 +8,7 @@
 
 import UIKit
 
-fileprivate var selectedRepeatingOption = "Daily"
+fileprivate var selectedRepeatingOption: String?
 fileprivate var selectedMonthOption: String?
 fileprivate var selectedDayOption: String?
 fileprivate var selectedHourOption: String?
@@ -27,7 +27,24 @@ class RuleEditViewController: UIViewController {
     }
     
     @objc func dismissKeyboard() {
-        repeatingTextView.text = selectedRepeatingOption
+
+        view.endEditing(true)
+    }
+    
+    @objc func updateRepeating () {
+        if (selectedRepeatingOption != nil) {
+            repeatingTextView.text = (selectedRepeatingOption ?? "Daily")
+        }
+        else
+        {
+            repeatingTextView.text = "Daily"
+        }
+        dismissKeyboard()
+    }
+    
+    @objc func cancelSetRepeating() {
+        
+        repeatingTextView.text = "None"
         view.endEditing(true)
     }
     
@@ -124,7 +141,9 @@ class RuleEditViewController: UIViewController {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
-        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(RuleEditViewController.dismissKeyboard))
+        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(RuleEditViewController.updateRepeating))
+        
+        let cancelButton = UIBarButtonItem(title: "Set None", style: .plain, target: self, action: #selector(RuleEditViewController.cancelSetRepeating))
         
         toolbar.setItems([saveButton], animated: false)
         toolbar.isUserInteractionEnabled = true

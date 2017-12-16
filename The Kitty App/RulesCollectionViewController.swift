@@ -8,22 +8,18 @@
 
 import UIKit
     
-var RuleLoadedCount = 0
-var RuleCountTotal = 0
-    
-    var theRulesArr = UserDefaults.standard.object(forKey: "theRulesArray") != nil ? UserDefaults.standard.array(forKey: "theRulesArray") as! [String] :  [
-    "Brush your teeth first thing when you wake up, or eat and then brush",
-    "Review the rules and what you have to do for the day",
-    "Drink a glass of water daily",
-    "Always wear your collar when you go out (unless you are wearing a neck accessory for the aesthetic)",
-    "Art Monday - Friday for 1 hour (half an hour on workdays longer than 4 hours)",
-    "Bedtime is 7 hours before you have to get up",
-    "Try on your retainer once a month and adjust rule from there (11/30)",
-    "Wash your face every night (night showers count)",
-    "Brush your teeth before you go to sleep",
-    "Kneel whenever we either of us are coming to stay in the apartment",
-    "Work out every two weeks (11/22)",
-    "Do two courses of Duolingo everyday"
+    var theRulesArr = [
+    Rule(text: "Review the rules and what you have to do for the day", dueMonth: nil,dueDay: nil,dueHour: nil,dueMinute: nil,repeating: "Daily", ruleCompleted: false),
+    Rule(text: "Brush your teeth first thing when you wake up, or eat and then brush", dueMonth: nil,dueDay: nil,dueHour: nil,dueMinute: nil,repeating: "Daily", ruleCompleted: false),
+    Rule(text: "No desserts for breakfast", dueMonth: nil,dueDay: nil,dueHour: nil,dueMinute: nil,repeating: nil, ruleCompleted: false),
+    Rule(text: "Drink a glass of water Daily", dueMonth: nil,dueDay: nil,dueHour: nil,dueMinute: nil,repeating: "Daily", ruleCompleted: false),
+    Rule(text: "Always wear your collar when you go out (unless you are wearing a neck accessory)", dueMonth: nil,dueDay: nil,dueHour: nil,dueMinute: nil,repeating: "Daily", ruleCompleted: false),
+    Rule(text: "Art Monday - Friday for 1 hour", dueMonth: nil,dueDay: nil,dueHour: nil,dueMinute: nil,repeating: "Daily", ruleCompleted: false),
+    Rule(text: "Bedtime is 7 hours before you have to get up", dueMonth: nil,dueDay: nil,dueHour: nil,dueMinute: nil,repeating: "Daily", ruleCompleted: false),
+    Rule(text: "Try your retainer on once a month", dueMonth: "1",dueDay: "3",dueHour: nil,dueMinute: nil,repeating: "Daily", ruleCompleted: false),
+    Rule(text: "Brush your teeth before bedtime", dueMonth: nil,dueDay: nil,dueHour: nil,dueMinute: nil,repeating: "Weekly", ruleCompleted: false),
+    Rule(text: "Work out every two weeks", dueMonth: "12",dueDay: "20",dueHour: nil,dueMinute: nil,repeating: nil, ruleCompleted: false),
+    Rule(text: "Do two courses of Duoling everyday", dueMonth: nil,dueDay: nil,dueHour: nil,dueMinute: nil,repeating: "Daily", ruleCompleted: false)
 ]
 
 class RulesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate	{
@@ -36,13 +32,11 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     @objc func completedRuleButtonPressed (_ sender: UIButton!) {
         print("button pressed " + String(sender.tag))
         if (sender.backgroundImage(for: .normal) == #imageLiteral(resourceName: "kittyPaw")) {
-            UserDefaults.standard.set(false, forKey: "clickedRuleButton" + String(sender.tag))
-            UserDefaults.standard.synchronize()
+            theRulesArr[sender.tag].ruleCompleted = false
             sender.setBackgroundImage(nil, for: .normal)
         }
         else {
-            UserDefaults.standard.set(true, forKey: "clickedRuleButton" + String(sender.tag))
-            UserDefaults.standard.synchronize()
+            theRulesArr[sender.tag].ruleCompleted = true
             sender.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
         }
     }
@@ -63,9 +57,7 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addRule))
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(removeOrEditRule))
-        
-        UserDefaults.standard.set(theRulesArr, forKey: "theRulesArray")
-        UserDefaults.standard.synchronize()
+
     
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -75,10 +67,7 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     @objc func addRule (sender: UIBarButtonItem) {
         print("add rule")
         
-        theRulesArr.append("New Rule")
-        
-        UserDefaults.standard.set(theRulesArr, forKey: "theRulesArray")
-        UserDefaults.standard.synchronize()
+        theRulesArr.append(Rule(text: "New Rule", dueMonth: nil, dueDay: nil, dueHour: nil, dueMinute: nil, repeating: "Daily", ruleCompleted: false))
         
         let insertionPathindex = NSIndexPath(item: theRulesArr.count-1, section: 0)
         collectionView?.insertItems(at: [insertionPathindex as IndexPath])
@@ -108,10 +97,8 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     func textViewDidEndEditing(_ textView: UITextView) {
         print("EndEditing at tag: " + String(textView.tag))
         
-        theRulesArr[textView.tag] = textView.text
+        theRulesArr[textView.tag].text = textView.text
         print(textView.text + " for tag " + String(textView.tag))
-        UserDefaults.standard.set(theRulesArr, forKey: "theRulesArray")
-        UserDefaults.standard.synchronize()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -119,12 +106,29 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         return theRulesArr.count
     }
     
+    //MARK: Cell Deque
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellIdentifier, for: indexPath) as! CustomCell
         
-        customCell.ruleLabel.text = theRulesArr[indexPath.item]
+        let currentRule = theRulesArr[indexPath.item]
+        
+        customCell.ruleLabel.text = currentRule.text
+        
+        if currentRule.dueMonth != nil
+        {
+            customCell.ruleLabel.text = customCell.ruleLabel.text + currentRule.dueMonth! + "/" + currentRule.dueDay!
+        }
+        
+        if currentRule.dueHour != nil
+        {
+            customCell.ruleLabel.text = customCell.ruleLabel.text + currentRule.dueHour! + ":" + currentRule.dueMinute!
+            //TODO: getFormmattedTime(hour, minute)
+        }
+        
+        
         customCell.ruleLabel.tag = indexPath.item
+        customCell.completedRuleButton.tag = indexPath.item
         
         customCell.ruleLabel.delegate = self
         
@@ -170,8 +174,8 @@ class CustomCell: UICollectionViewCell {
         checkButton.layer.cornerRadius = 6
         checkButton.backgroundColor = UIColor(red: 252/255, green: 237/255, blue: 244/255, alpha: 1)
         checkButton.translatesAutoresizingMaskIntoConstraints = false
-        checkButton.tag = RuleLoadedCount
-        if (UserDefaults.standard.bool(forKey: "clickedRuleButton" + String(checkButton.tag))) {
+        if (theRulesArr[checkButton.tag].ruleCompleted == true)
+        {
             checkButton.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
         }
         return checkButton
@@ -180,7 +184,6 @@ class CustomCell: UICollectionViewCell {
     func setUpViews() {
         //backgroundColor = UIColor(red: 249/255, green: 199/255, blue: 224/255, alpha: 1)
         //backgroundColor = UIColor.black
-        RuleLoadedCount = RuleLoadedCount + 1
         
         addSubview(ruleLabel)
         addSubview(completedRuleButton)
@@ -197,20 +200,22 @@ class CustomCell: UICollectionViewCell {
     
 }
     
-    class Rule {
-        var text: String
-        var dueMonth: String?
-        var dueDay: String?
-        var repeating: String?
-        var ruleCompleted: Bool
+class Rule {
+    var text: String
+    var dueMonth: String?
+    var dueDay: String?
+    var dueHour: String?
+    var dueMinute: String?
+    var repeating: String?
+    var ruleCompleted: Bool
         
-        init(text: String, dueMonth: String?, dueDay: String?, repeating: String?, ruleCompleted: Bool) {
-            self.text = text
-            self.dueMonth = dueMonth
-            self.dueDay = dueDay
-            self.repeating = repeating
-            self.ruleCompleted = ruleCompleted
-        }
-        
-        
+    init(text: String, dueMonth: String?, dueDay: String?, dueHour: String?, dueMinute: String?, repeating: String?, ruleCompleted: Bool) {
+        self.text = text
+        self.dueMonth = dueMonth
+        self.dueDay = dueDay
+        self.dueHour = dueHour
+        self.dueMinute = dueMinute
+        self.repeating = repeating
+        self.ruleCompleted = ruleCompleted
     }
+}
