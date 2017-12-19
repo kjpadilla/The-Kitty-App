@@ -65,14 +65,20 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     
     
     @objc func addRule (sender: UIBarButtonItem) {
-        print("add rule")
+        print("add rules")
         
-        theRulesArr.append(Rule(text: "New Rule", dueMonth: nil, dueDay: nil, dueHour: nil, dueMinute: nil, repeating: "Daily", ruleCompleted: false))
+        let addRuleViewController = RuleEditViewController()
+        //navigationController?.pushViewController(addRuleViewController, animated: true)
+        //self.present(addRuleViewController, animated: true, completion: nil)
+        let addRuleViewNav = UINavigationController(rootViewController: addRuleViewController)
         
-        let insertionPathindex = NSIndexPath(item: theRulesArr.count-1, section: 0)
-        collectionView?.insertItems(at: [insertionPathindex as IndexPath])
-        
-        collectionView?.scrollToItem(at: insertionPathindex as IndexPath, at: .bottom, animated: true)
+        navigationController?.present(addRuleViewNav, animated: true, completion: nil)
+//        theRulesArr.append(Rule(text: "New Rule", dueMonth: nil, dueDay: nil, dueHour: nil, dueMinute: nil, repeating: "Daily", ruleCompleted: false))
+//
+//        let insertionPathindex = NSIndexPath(item: theRulesArr.count-1, section: 0)
+//        collectionView?.insertItems(at: [insertionPathindex as IndexPath])
+//
+//        collectionView?.scrollToItem(at: insertionPathindex as IndexPath, at: .bottom, animated: true)
         
     }
     
