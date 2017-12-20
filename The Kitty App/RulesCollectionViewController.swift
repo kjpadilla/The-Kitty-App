@@ -54,7 +54,7 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
         collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addRule))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentEditRuleView))
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(removeOrEditRule))
 
@@ -64,13 +64,15 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     
-    @objc func addRule (sender: UIBarButtonItem) {
+    @objc func presentEditRuleView (sender: UIBarButtonItem) {
         print("add rules")
         
         let addRuleViewController = RuleEditViewController()
+        addRuleViewController.ruleCollectionView = self
         //navigationController?.pushViewController(addRuleViewController, animated: true)
         //self.present(addRuleViewController, animated: true, completion: nil)
         let addRuleViewNav = UINavigationController(rootViewController: addRuleViewController)
+        
         
         navigationController?.present(addRuleViewNav, animated: true, completion: nil)
 //        theRulesArr.append(Rule(text: "New Rule", dueMonth: nil, dueDay: nil, dueHour: nil, dueMinute: nil, repeating: "Daily", ruleCompleted: false))
@@ -82,6 +84,21 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
     }
     
+    func addRule(rule: Rule) {
+        
+        let insertionIndexPath = IndexPath(item: theRulesArr.count, section: 0)
+        
+        theRulesArr.append(rule)
+        collectionView?.insertItems(at: [insertionIndexPath])
+        
+        //collectionView?.scrollToItem(at: insertionIndexPath, at: .bottom, animated: true)
+        
+    }
+    
+    @objc func testPrint() {
+        print("testing")
+    }
+    
     @objc func removeOrEditRule (sender: UIBarButtonItem) {
         print("Remove or edit")
     }
@@ -89,7 +106,7 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     
     @objc func removeKeyboard (sender: UIBarButtonItem) {
         print("remove the keyboard")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addRule))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentEditRuleView))
         currentTextView?.resignFirstResponder()
         
     }
@@ -123,12 +140,12 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
         if currentRule.dueMonth != nil
         {
-            customCell.ruleLabel.text = customCell.ruleLabel.text + currentRule.dueMonth! + "/" + currentRule.dueDay!
+            customCell.ruleLabel.text = customCell.ruleLabel.text + " " + currentRule.dueMonth! + "/" + currentRule.dueDay!
         }
         
         if currentRule.dueHour != nil
         {
-            customCell.ruleLabel.text = customCell.ruleLabel.text + currentRule.dueHour! + ":" + currentRule.dueMinute!
+            customCell.ruleLabel.text = customCell.ruleLabel.text + " " + currentRule.dueHour! + ":" + currentRule.dueMinute!
             //TODO: getFormmattedTime(hour, minute)
         }
         

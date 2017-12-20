@@ -8,6 +8,7 @@
 
 import UIKit
 
+fileprivate var ruleText: String?
 fileprivate var selectedRepeatingOption: String?
 fileprivate var selectedMonthOption: String?
 fileprivate var selectedDayOption: String?
@@ -16,22 +17,65 @@ fileprivate var selectedMinuteOption: String?
 
 
 //MARK: RuleEditViewController
-class RuleEditViewController: UIViewController {
+class RuleEditViewController: UIViewController, UITextViewDelegate {
+    
+    var rule: Rule?
+    var ruleCollectionView: RulesCollectionViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveRule))
         
         view.backgroundColor = UIColor.blue
+
         
         setUpViews()
+    }
+    
+    @objc func saveRule() {
+        
+        updateRuleText()
+        
+        if (dueDateTextView.text == "None") {
+            selectedMonthOption = nil
+            selectedDayOption = nil
+        }
+        
+        let text = ruleText ?? ""
+        let isCompletedRule = false
+        
+        rule = Rule(text: text, dueMonth: selectedMonthOption, dueDay: selectedDayOption, dueHour: selectedHourOption, dueMinute: selectedMinuteOption, repeating: selectedRepeatingOption, ruleCompleted: isCompletedRule)
+        
+        ruleCollectionView?.addRule(rule: rule!)
+        
+        clearVars()
+        dismissView()
+    }
+    
+    func clearVars() {
+        selectedRepeatingOption = nil
+        selectedMinuteOption = nil
+        selectedHourOption = nil
+        selectedDayOption = nil
+        selectedMonthOption = nil
+        ruleText = nil
+    }
+    
+    @objc func dismissView() {
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func dismissKeyboard() {
 
         view.endEditing(true)
+    }
+    
+    @objc func updateRuleText() {
+        
+        ruleText = editRuleView.text ?? ""
+        dismissKeyboard()
     }
     
     @objc func updateRepeating () {
@@ -53,10 +97,18 @@ class RuleEditViewController: UIViewController {
     
     @objc func updateDueDate () {
         if (selectedMonthOption != nil || selectedMinuteOption != nil) {
-            dueDateTextView.text = (selectedMonthOption ?? "1") + "/" + (selectedDayOption ?? "1")
+            
+            selectedMonthOption = (selectedMonthOption ?? "1")
+            selectedDayOption = (selectedDayOption ?? "1")
+            
+            dueDateTextView.text =  selectedMonthOption! + "/" + selectedDayOption!
         }
         else
         {
+            
+            selectedMonthOption = "1"
+            selectedDayOption = "1"
+            
             dueDateTextView.text = "1/01"
         }
         dismissKeyboard()
@@ -73,10 +125,17 @@ class RuleEditViewController: UIViewController {
     @objc func updateDueTime() {
         
         if (selectedHourOption != nil || selectedMinuteOption != nil) {
-            dueTimeTextView.text = (selectedHourOption ?? "0") + ":" + (selectedMinuteOption ?? "0")
+            
+            selectedHourOption = (selectedHourOption ?? "0")
+            selectedMinuteOption = (selectedMinuteOption ?? "0")
+            
+            dueTimeTextView.text =  selectedHourOption! + ":" + selectedMinuteOption!
         }
         else
         {
+            selectedHourOption = "0"
+            selectedMinuteOption = "0"
+            
             dueTimeTextView.text = "00:00"
         }
         
@@ -87,6 +146,10 @@ class RuleEditViewController: UIViewController {
         
         dueTimeTextView.text = "None"
         view.endEditing(true)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        updateRuleText()
     }
     
     let ruleLabel: UILabel = {
@@ -113,7 +176,7 @@ class RuleEditViewController: UIViewController {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
-        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(RuleEditViewController.dismissKeyboard))
+        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(RuleEditViewController.updateRuleText))
         
         toolbar.setItems([saveButton], animated: false)
         toolbar.isUserInteractionEnabled = true
@@ -240,6 +303,7 @@ class RuleEditViewController: UIViewController {
     func setUpViews() {
         view.addSubview(ruleLabel)
         view.addSubview(editRuleView)
+        editRuleView.delegate = self
         
         view.addSubview(repeatingLabel)
         view.addSubview(repeatingTextView)
