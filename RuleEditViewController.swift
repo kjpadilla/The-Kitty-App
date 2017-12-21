@@ -21,17 +21,61 @@ class RuleEditViewController: UIViewController, UITextViewDelegate {
     
     var rule: Rule?
     var ruleCollectionView: RulesCollectionViewController?
+    var ruleIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveRule))
+        if (rule == nil) {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveRule))
+        } else {
+         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(editRule))
+            
+            editRuleView.text = rule?.text
+            updateRuleText()
+            
+            selectedRepeatingOption = rule?.repeating
+            updateRepeating()
+            
+            if (rule?.dueMonth != nil) {
+                selectedMonthOption = rule?.dueMonth
+                selectedDayOption = rule?.dueDay
+                updateDueDate()
+            }
+            
+            if (rule?.dueHour != nil) {
+                selectedHourOption = rule?.dueHour
+                selectedMinuteOption = rule?.dueMinute
+                updateDueTime()
+            }
+            
+        }
         
         view.backgroundColor = UIColor.blue
 
         
         setUpViews()
+    }
+    
+    @objc func editRule() {
+        
+        updateRuleText()
+        
+        if (dueDateTextView.text == "None") {
+            selectedMonthOption = nil
+            selectedDayOption = nil
+        }
+        
+        let text = ruleText ?? ""
+        let isCompletedRule = rule?.ruleCompleted
+        
+        rule = Rule(text: text, dueMonth: selectedMonthOption, dueDay: selectedDayOption, dueHour: selectedHourOption, dueMinute: selectedMinuteOption, repeating: selectedRepeatingOption, ruleCompleted: isCompletedRule!)
+        
+        ruleCollectionView?.updateRule(rule: rule!, index: ruleIndex!)
+        
+        clearVars()
+        dismissView()
     }
     
     @objc func saveRule() {

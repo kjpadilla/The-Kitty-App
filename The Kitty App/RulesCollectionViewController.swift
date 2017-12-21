@@ -22,7 +22,7 @@ import UIKit
     Rule(text: "Do two courses of Duoling everyday", dueMonth: nil,dueDay: nil,dueHour: nil,dueMinute: nil,repeating: "Daily", ruleCompleted: false)
 ]
 
-class RulesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate	{
+class RulesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate	{
 
     
     let customCellIdentifier = "customCellIdentifier"
@@ -42,10 +42,10 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         navigationItem.title = "The Rules"
         
 //        collectionView?.backgroundColor = UIColor(red: 252/255, green: 237/255, blue: 244/255, alpha: 1)
@@ -56,15 +56,95 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentEditRuleView))
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(removeOrEditRule))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(deleteRulesView))
+        
+        print("Collection VUEW LOADED")
 
     
         
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    @objc func deleteRulesView() {
+        
+        print("DELETE RULES VIEW CALLED")
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(endDeleting))
+        
+        for row in 0..<(collectionView?.numberOfItems(inSection: 0))! {
+            print(row)
+            
+            let indexPath = IndexPath(item: row, section: 0)
+            
+            let cell = collectionView?.cellForItem(at: indexPath) as! CustomCell
+            
+            cell.completedRuleButton.removeTarget(self, action: #selector(completedRuleButtonPressed), for: .touchUpInside)
+            cell.completedRuleButton.addTarget(self, action: #selector(deleteRule), for: .touchUpInside)
+            print("deleteOne")
+            cell.completedRuleButton.setBackgroundImage(#imageLiteral(resourceName: "deleteIcon"), for: .normal)
+            
+        }
+    }
     
-    @objc func presentEditRuleView (sender: UIBarButtonItem) {
+    
+    @objc func endDeleting() {
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(deleteRulesView))
+        
+        for row in 0..<(collectionView?.numberOfItems(inSection: 0))! {
+            print(row)
+            print("removing Target")
+            
+            let indexPath = IndexPath(item: row, section: 0)
+            
+            let cell = collectionView?.cellForItem(at: indexPath) as! CustomCell
+            
+            cell.completedRuleButton.removeTarget(self, action: #selector(deleteRule), for: .touchUpInside)
+            cell.completedRuleButton.addTarget(self, action: #selector(completedRuleButtonPressed), for: .touchUpInside)
+            
+            if theRulesArr[row].ruleCompleted == true {
+                cell.completedRuleButton.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
+            }
+            else {
+                cell.completedRuleButton.setBackgroundImage(nil, for: .normal)
+            }
+            
+            
+        }
+        
+
+    }
+    
+    @objc func deleteRule(sender: UIButton) {
+        print(sender.tag)
+        
+        let index = sender.tag
+        
+        theRulesArr.remove(at: sender.tag)
+        
+        collectionView?.deleteItems(at: [IndexPath(item: sender.tag, section: 0)])
+        
+        for row in index..<(collectionView?.numberOfItems(inSection: 0))! {
+            print(row)
+            
+            let indexPath = IndexPath(item: row, section: 0)
+            
+            let cell = collectionView?.cellForItem(at: indexPath) as! CustomCell
+            
+            cell.completedRuleButton.tag = cell.completedRuleButton.tag - 1
+            cell.ruleLabel.tag = cell.ruleLabel.tag - 1
+            
+        }
+        
+    }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("item selected at " + String(indexPath.item))
+    }
+    
+    
+    @objc func presentEditRuleView () {
         print("add rules")
         
         let addRuleViewController = RuleEditViewController()
@@ -90,39 +170,46 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
         theRulesArr.append(rule)
         collectionView?.insertItems(at: [insertionIndexPath])
+
         
+//        let newIndexPath = IndexPath(item: theRulesArr.count, section: 0)
+//        let cell = collectionView?.cellForItem(at: newIndexPath) as! CustomCell
+//        cell.completedRuleButton.removeTarget(self, action: #selector(deleteRule(sender:)), for: .touchUpInside)
+//        if(theRulesArr[newIndexPath.item].ruleCompleted == true) {
+//            cell.completedRuleButton.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
+//        }
+//        cell.completedRuleButton.setBackgroundImage(nil, for: .normal)
+
         //collectionView?.scrollToItem(at: insertionIndexPath, at: .bottom, animated: true)
         
+    }
+    
+    @objc func editRule(sender: UIGestureRecognizer) {
+        
+        print("editRule" + String(describing: sender.view?.tag))
+        
+        let addRuleViewController = RuleEditViewController()
+        addRuleViewController.ruleCollectionView = self
+        addRuleViewController.rule = theRulesArr[(sender.view?.tag)!]
+        addRuleViewController.ruleIndex = (sender.view?.tag)!
+        
+        let addRuleViewNav = UINavigationController(rootViewController: addRuleViewController)
+        
+        
+        navigationController?.present(addRuleViewNav, animated: true, completion: nil)
+        
+    }
+    
+    func updateRule(rule: Rule, index: Int) {
+        theRulesArr[index] = rule
+        collectionView?.reloadItems(at: [IndexPath(item: index, section: 0)])
+
     }
     
     @objc func testPrint() {
         print("testing")
     }
-    
-    @objc func removeOrEditRule (sender: UIBarButtonItem) {
-        print("Remove or edit")
-    }
-    
-    
-    @objc func removeKeyboard (sender: UIBarButtonItem) {
-        print("remove the keyboard")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentEditRuleView))
-        currentTextView?.resignFirstResponder()
-        
-    }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(removeKeyboard))
-        currentTextView = textView
-        print("begin edit")
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        print("EndEditing at tag: " + String(textView.tag))
-        
-        theRulesArr[textView.tag].text = textView.text
-        print(textView.text + " for tag " + String(textView.tag))
-    }
+
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -132,6 +219,8 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     //MARK: Cell Deque
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        print("CELL DEQUE")
+        
         let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellIdentifier, for: indexPath) as! CustomCell
         
         let currentRule = theRulesArr[indexPath.item]
@@ -140,22 +229,33 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
         if currentRule.dueMonth != nil
         {
-            customCell.ruleLabel.text = customCell.ruleLabel.text + " " + currentRule.dueMonth! + "/" + currentRule.dueDay!
+            customCell.ruleLabel.text = customCell.ruleLabel.text! + " " + currentRule.dueMonth! + "/" + currentRule.dueDay!
         }
         
         if currentRule.dueHour != nil
         {
-            customCell.ruleLabel.text = customCell.ruleLabel.text + " " + currentRule.dueHour! + ":" + currentRule.dueMinute!
+            customCell.ruleLabel.text = customCell.ruleLabel.text! + " " + currentRule.dueHour! + ":" + currentRule.dueMinute!
             //TODO: getFormmattedTime(hour, minute)
         }
         
         
         customCell.ruleLabel.tag = indexPath.item
-        customCell.completedRuleButton.tag = indexPath.item
+        let tap = UITapGestureRecognizer(target: self, action: #selector(editRule))
+        tap.delegate = self
+        customCell.ruleLabel.addGestureRecognizer(tap)
+        //customCell.ruleLabel.addTarget(self, action: #selector(editRule), for: .touchUpInside)
         
-        customCell.ruleLabel.delegate = self
+        
+        customCell.completedRuleButton.tag = indexPath.item
+        customCell.completedRuleButton.removeTarget(self, action: #selector(deleteRule(sender:)), for: .touchUpInside)
         
         customCell.completedRuleButton.addTarget(self, action: #selector(completedRuleButtonPressed), for: .touchUpInside)
+        
+        if (theRulesArr[indexPath.item].ruleCompleted == true) {
+            customCell.completedRuleButton.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
+        } else {
+            customCell.completedRuleButton.setBackgroundImage(nil, for: .normal)
+        }
         
         return customCell
     }
@@ -173,9 +273,11 @@ class CustomCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+
         print("cell created ")
         setUpViews()
     }
+
     
     let ruleLabel: UITextView = {
         let label = UITextView()
@@ -185,7 +287,9 @@ class CustomCell: UICollectionViewCell {
         label.sizeToFit()
         label.isScrollEnabled = false
         label.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        //label.numberOfLines = 0
+        label.isEditable = false
+        
+        //let tap = UITapGestureRecognizer(target: self(), action: tes)        //label.numberOfLines = 0
         
     
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -210,6 +314,7 @@ class CustomCell: UICollectionViewCell {
         
         addSubview(ruleLabel)
         addSubview(completedRuleButton)
+        print("adding RULES TO THE SUBVIEW")
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[v0]-[v1(48)]-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel, "v1": completedRuleButton]))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-4-[v0(48)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel]))
