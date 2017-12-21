@@ -25,6 +25,17 @@ import UIKit
 class RulesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate	{
 
     
+    private func saveRules() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(theRulesArr, toFile: Rule.ArchiveUrl.path)
+//        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: theRulesArr), forKey: "rules")
+//        UserDefaults.standard.synchronize()
+        if isSuccessfulSave {
+            print("successful SAVE!!!!!")
+        } else {
+            print("failed to save")
+        }
+    }
+    
     let customCellIdentifier = "customCellIdentifier"
     
     var currentTextView: UITextView? = nil
@@ -54,7 +65,18 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
         collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
         
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentEditRuleView))
+//        if let decoded = UserDefaults.standard.object(forKey: "rules") {
+//            loadRules()
+//        }
+        
+        if let savedRules = loadRules() {
+            theRulesArr = savedRules
+        } else {
+            print("do something if nothing was loaded")
+        }
+        
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(deleteRulesView))
         
@@ -121,6 +143,7 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         let index = sender.tag
         
         theRulesArr.remove(at: sender.tag)
+        saveRules()
         
         collectionView?.deleteItems(at: [IndexPath(item: sender.tag, section: 0)])
         
@@ -135,6 +158,7 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
             cell.ruleLabel.tag = cell.ruleLabel.tag - 1
             
         }
+        
         
     }
     
@@ -170,7 +194,7 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
         theRulesArr.append(rule)
         collectionView?.insertItems(at: [insertionIndexPath])
-
+        saveRules()
         
 //        let newIndexPath = IndexPath(item: theRulesArr.count, section: 0)
 //        let cell = collectionView?.cellForItem(at: newIndexPath) as! CustomCell
@@ -203,6 +227,7 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     func updateRule(rule: Rule, index: Int) {
         theRulesArr[index] = rule
         collectionView?.reloadItems(at: [IndexPath(item: index, section: 0)])
+        saveRules()
 
     }
     
@@ -266,6 +291,15 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         return CGSize(width: view.frame.width, height: 60)
     }
 
+    private func loadRules() -> [Rule]? {
+//        let decoded = UserDefaults.standard.object(forKey: "rules") as! Data
+//        let decodedRules = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [Rule]
+//        print(decodedRules.count)
+//        theRulesArr = decodedRules
+        
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Rule.ArchiveUrl.path) as? [Rule]
+        
+    }
 
 }
 
@@ -328,7 +362,8 @@ class CustomCell: UICollectionViewCell {
     
 }
     
-class Rule {
+    class Rule: NSObject, NSCoding {
+        
     var text: String
     var dueMonth: String?
     var dueDay: String?
@@ -336,7 +371,21 @@ class Rule {
     var dueMinute: String?
     var repeating: String?
     var ruleCompleted: Bool
+    
+    struct PropertyKey {
+        static let text = "text"
+        static let dueMonth = "dueMonth"
+        static let dueDay = "dueDay"
+        static let dueHour = "dueHour"
+        static let dueMinute = "dueMinute"
+        static let repeating = "reapeating"
+        static let ruleCompleted = "ruleCompleted"
+    }
         
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    
+    static let ArchiveUrl = DocumentsDirectory.appendingPathComponent("rules")
+    
     init(text: String, dueMonth: String?, dueDay: String?, dueHour: String?, dueMinute: String?, repeating: String?, ruleCompleted: Bool) {
         self.text = text
         self.dueMonth = dueMonth
@@ -346,4 +395,30 @@ class Rule {
         self.repeating = repeating
         self.ruleCompleted = ruleCompleted
     }
+        
+        func encode(with aCoder: NSCoder) {
+            aCoder.encode(self.text, forKey: PropertyKey.text)
+            aCoder.encode(self.dueMonth, forKey: PropertyKey.dueMonth)
+            aCoder.encode(self.dueDay, forKey: PropertyKey.dueDay)
+            aCoder.encode(self.dueHour, forKey: PropertyKey.dueHour)
+            aCoder.encode(self.dueMinute, forKey: PropertyKey.dueMinute)
+            aCoder.encode(self.repeating, forKey: PropertyKey.repeating)
+            aCoder.encode(self.ruleCompleted, forKey: PropertyKey.ruleCompleted)
+        }
+        
+        required convenience init?(coder aDecoder: NSCoder) {
+            
+            guard let text = aDecoder.decodeObject(forKey: PropertyKey.text) as? String else {
+                print("FAILURE TEXT")
+                return nil
+            }
+            let dueMonth = aDecoder.decodeObject(forKey: PropertyKey.dueMonth) as? String
+            let dueDay = aDecoder.decodeObject(forKey: PropertyKey.dueDay) as? String
+            let dueHour = aDecoder.decodeObject(forKey: PropertyKey.dueHour) as? String
+            let dueMinute = aDecoder.decodeObject(forKey: PropertyKey.dueMinute) as? String
+            let repeating = aDecoder.decodeObject(forKey: PropertyKey.repeating) as? String
+            let ruleCompleted = aDecoder.decodeBool(forKey: PropertyKey.ruleCompleted)
+            
+            self.init(text: text, dueMonth: dueMonth, dueDay: dueDay, dueHour: dueHour, dueMinute: dueMinute, repeating: repeating, ruleCompleted: ruleCompleted)
+        }
 }
