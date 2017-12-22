@@ -44,10 +44,13 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         print("button pressed " + String(sender.tag))
         if (sender.backgroundImage(for: .normal) == #imageLiteral(resourceName: "kittyPaw")) {
             theRulesArr[sender.tag].ruleCompleted = false
+            saveRules()
             sender.setBackgroundImage(nil, for: .normal)
         }
         else {
             theRulesArr[sender.tag].ruleCompleted = true
+            print("for index \(sender.tag) the value is \(theRulesArr[sender.tag].ruleCompleted)")
+            saveRules()
             sender.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
         }
     }
@@ -73,6 +76,9 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
         if let savedRules = loadRules() {
             theRulesArr = savedRules
+            for rules in savedRules {
+                print(rules.ruleCompleted)
+            }
         } else {
             print("do something if nothing was loaded")
         }
@@ -417,8 +423,8 @@ class CustomCell: UICollectionViewCell {
             let dueHour = aDecoder.decodeObject(forKey: PropertyKey.dueHour) as? String
             let dueMinute = aDecoder.decodeObject(forKey: PropertyKey.dueMinute) as? String
             let repeating = aDecoder.decodeObject(forKey: PropertyKey.repeating) as? String
-            let ruleCompleted = aDecoder.decodeBool(forKey: PropertyKey.ruleCompleted)
+            let ruleIsCompleted = aDecoder.decodeBool(forKey: PropertyKey.ruleCompleted)
             
-            self.init(text: text, dueMonth: dueMonth, dueDay: dueDay, dueHour: dueHour, dueMinute: dueMinute, repeating: repeating, ruleCompleted: ruleCompleted)
+            self.init(text: text, dueMonth: dueMonth, dueDay: dueDay, dueHour: dueHour, dueMinute: dueMinute, repeating: repeating, ruleCompleted: ruleIsCompleted)
         }
 }
