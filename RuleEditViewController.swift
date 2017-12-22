@@ -199,7 +199,7 @@ class RuleEditViewController: UIViewController, UITextViewDelegate {
     let ruleLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.white
-        label.text = "Rule"
+        label.text = " Rule"
         label.font = UIFont.systemFont(ofSize: 12)
         label.sizeToFit()
         label.numberOfLines=0
@@ -233,7 +233,7 @@ class RuleEditViewController: UIViewController, UITextViewDelegate {
     let repeatingLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.white
-        label.text = "Repeating: "
+        label.text = " Repeating: "
         label.font = UIFont.systemFont(ofSize: 12)
         label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -270,7 +270,7 @@ class RuleEditViewController: UIViewController, UITextViewDelegate {
     let dueDateLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.white
-        label.text = "Next Due Date: "
+        label.text = " Next Due Date: "
         label.font = UIFont.systemFont(ofSize: 12)
         label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -371,14 +371,14 @@ class RuleEditViewController: UIViewController, UITextViewDelegate {
        // view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-147-[v0(35)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": repeatingLabel]))
         //view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-186-[v0(35)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dueDateLabel]))
        // view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-225-[v0(35)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dueTimeLabel]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[v0(25)][v1(75)]-4-[v2(35)][v3(35)]-4-[v4(35)][v5(35)]-4-[v6(35)][v7]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":ruleLabel, "v1": editRuleView, "v2": repeatingLabel, "v3": repeatingTextView, "v4": dueDateLabel, "v5": dueDateTextView, "v6": dueTimeLabel, "v7": dueTimeTextView]))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-70-[v0(25)][v1(75)]-4-[v2(35)][v3(35)]-4-[v4(35)][v5(35)]-4-[v6(35)][v7]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":ruleLabel, "v1": editRuleView, "v2": repeatingLabel, "v3": repeatingTextView, "v4": dueDateLabel, "v5": dueDateTextView, "v6": dueTimeLabel, "v7": dueTimeTextView]))
     }
 
 }
 
 class RepeatingPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    let repeatingOptions = ["Daily", "weekly", "monthly"]
+    let repeatingOptions = ["Daily", "Weekly", "Monthly"]
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

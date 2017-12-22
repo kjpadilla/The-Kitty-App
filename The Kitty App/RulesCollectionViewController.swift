@@ -24,6 +24,7 @@ import UIKit
 
 class RulesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate	{
 
+    private var deleteMode = false
     
     private func saveRules() {
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(theRulesArr, toFile: Rule.ArchiveUrl.path)
@@ -96,50 +97,50 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
     @objc func deleteRulesView() {
         
         print("DELETE RULES VIEW CALLED")
+        deleteMode = true
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(endDeleting))
         
-        for row in 0..<(collectionView?.numberOfItems(inSection: 0))! {
-            print(row)
+        for cell in (collectionView?.visibleCells)! {
             
-            let indexPath = IndexPath(item: row, section: 0)
+            let customCell = cell as? CustomCell
             
-            let cell = collectionView?.cellForItem(at: indexPath) as! CustomCell
-            
-            cell.completedRuleButton.removeTarget(self, action: #selector(completedRuleButtonPressed), for: .touchUpInside)
-            cell.completedRuleButton.addTarget(self, action: #selector(deleteRule), for: .touchUpInside)
+            customCell?.completedRuleButton.removeTarget(self, action: #selector(completedRuleButtonPressed), for: .touchUpInside)
+            customCell?.completedRuleButton.addTarget(self, action: #selector(deleteRule), for: .touchUpInside)
             print("deleteOne")
-            cell.completedRuleButton.setBackgroundImage(#imageLiteral(resourceName: "deleteIcon"), for: .normal)
+            customCell?.completedRuleButton.setBackgroundImage(#imageLiteral(resourceName: "deleteIcon"), for: .normal)
             
         }
+        
+        collectionView?.reloadData()
     }
     
     
     @objc func endDeleting() {
         
+        deleteMode = false
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(deleteRulesView))
         
-        for row in 0..<(collectionView?.numberOfItems(inSection: 0))! {
-            print(row)
+        for cell in (collectionView?.visibleCells)! {
+
             print("removing Target")
             
-            let indexPath = IndexPath(item: row, section: 0)
+            let customCell = cell as! CustomCell
             
-            let cell = collectionView?.cellForItem(at: indexPath) as! CustomCell
+            customCell.completedRuleButton.removeTarget(self, action: #selector(deleteRule), for: .touchUpInside)
+            customCell.completedRuleButton.addTarget(self, action: #selector(completedRuleButtonPressed), for: .touchUpInside)
             
-            cell.completedRuleButton.removeTarget(self, action: #selector(deleteRule), for: .touchUpInside)
-            cell.completedRuleButton.addTarget(self, action: #selector(completedRuleButtonPressed), for: .touchUpInside)
-            
-            if theRulesArr[row].ruleCompleted == true {
-                cell.completedRuleButton.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
+            if theRulesArr[customCell.completedRuleButton.tag].ruleCompleted == true {
+                customCell.completedRuleButton.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
             }
             else {
-                cell.completedRuleButton.setBackgroundImage(nil, for: .normal)
+                customCell.completedRuleButton.setBackgroundImage(nil, for: .normal)
             }
             
             
         }
-        
+        collectionView?.reloadData()
 
     }
     
@@ -278,14 +279,27 @@ class RulesCollectionViewController: UICollectionViewController, UICollectionVie
         
         
         customCell.completedRuleButton.tag = indexPath.item
-        customCell.completedRuleButton.removeTarget(self, action: #selector(deleteRule(sender:)), for: .touchUpInside)
         
-        customCell.completedRuleButton.addTarget(self, action: #selector(completedRuleButtonPressed), for: .touchUpInside)
-        
-        if (theRulesArr[indexPath.item].ruleCompleted == true) {
-            customCell.completedRuleButton.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
-        } else {
-            customCell.completedRuleButton.setBackgroundImage(nil, for: .normal)
+        if deleteMode == false {
+            
+            customCell.completedRuleButton.removeTarget(self, action: #selector(deleteRule(sender:)), for: .touchUpInside)
+            
+            customCell.completedRuleButton.addTarget(self, action: #selector(completedRuleButtonPressed), for: .touchUpInside)
+            
+            if (theRulesArr[indexPath.item].ruleCompleted == true) {
+                customCell.completedRuleButton.setBackgroundImage(#imageLiteral(resourceName: "kittyPaw"), for: .normal)
+            } else {
+                customCell.completedRuleButton.setBackgroundImage(nil, for: .normal)
+            }
+            
+            
+            
+        }
+        else {
+            customCell.completedRuleButton.removeTarget(self, action: #selector(completedRuleButtonPressed), for: .touchUpInside)
+            customCell.completedRuleButton.addTarget(self, action: #selector(deleteRule), for: .touchUpInside)
+            print("deleteOne")
+            customCell.completedRuleButton.setBackgroundImage(#imageLiteral(resourceName: "deleteIcon"), for: .normal)
         }
         
         return customCell
