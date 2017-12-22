@@ -52,7 +52,7 @@ class RuleEditViewController: UIViewController, UITextViewDelegate {
             
         }
         
-        view.backgroundColor = UIColor.blue
+        view.backgroundColor = UIColor.black
 
         
         setUpViews()
@@ -358,16 +358,20 @@ class RuleEditViewController: UIViewController, UITextViewDelegate {
         view.addSubview(dueTimeLabel)
         view.addSubview(dueTimeTextView)
         
+        //let height = String(describing: view.frame.size.height - 50)
         
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-2-[v0]-2-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-2-[v0]-2-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": editRuleView]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-2-[v0][v1]-2-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": repeatingLabel, "v1": repeatingTextView]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-2-[v0][v1]-2-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dueDateLabel, "v1": dueDateTextView]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-2-[v0][v1]-2-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dueTimeLabel, "v1": dueTimeTextView]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-147-[v0(35)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": repeatingLabel]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-186-[v0(35)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dueDateLabel]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-225-[v0(35)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dueTimeLabel]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[v0(25)]-4-[v1(50)]-4-[v2(35)]-4-[v3(35)]-[v4(35)]-476-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":ruleLabel, "v1": editRuleView, "v2": repeatingTextView, "v3": dueDateTextView, "v4": dueTimeTextView]))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[v0]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": ruleLabel]))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[v0]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": editRuleView]))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[v0]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": repeatingLabel]))
+         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[v0]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": repeatingTextView]))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[v0]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dueDateLabel]))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[v0]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dueDateTextView]))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[v0]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dueTimeLabel]))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[v0]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dueTimeTextView]))
+       // view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-147-[v0(35)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": repeatingLabel]))
+        //view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-186-[v0(35)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dueDateLabel]))
+       // view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-225-[v0(35)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dueTimeLabel]))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[v0(25)][v1(75)]-4-[v2(35)][v3(35)]-4-[v4(35)][v5(35)]-4-[v6(35)][v7]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":ruleLabel, "v1": editRuleView, "v2": repeatingLabel, "v3": repeatingTextView, "v4": dueDateLabel, "v5": dueDateTextView, "v6": dueTimeLabel, "v7": dueTimeTextView]))
     }
 
 }
